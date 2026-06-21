@@ -1,0 +1,922 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prince Edward County & Hastings Real Estate</title>
+  <meta name="description" content="Professional real estate services for Prince Edward County and Hastings, including featured listings, active listings, buyer services, and seller services.">
+  <style>
+    :root {
+      --ink: #161616;
+      --muted: #6f6a63;
+      --paper: #fbfaf7;
+      --soft: #eee8df;
+      --line: rgba(22, 22, 22, 0.12);
+      --white: #ffffff;
+      --gold: #b1976b;
+      --forest: #22332c;
+      --shadow: 0 18px 45px rgba(0, 0, 0, 0.14);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .hero {
+      min-height: 92vh;
+      position: relative;
+      color: var(--white);
+      background:
+        linear-gradient(90deg, rgba(0, 0, 0, 0.42), rgba(0, 0, 0, 0.14)),
+        linear-gradient(0deg, rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.18)),
+        url("hero.jpg") center / cover no-repeat,
+        linear-gradient(135deg, #625c53, #d6d0c6);
+      overflow: hidden;
+    }
+
+    .topbar {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 24px 24px 0;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      padding: 12px 22px;
+      color: var(--white);
+      background: rgba(0, 0, 0, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(8px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: min(360px, 78vw);
+      height: 138px;
+      padding: 0;
+      background: rgba(255, 255, 255, 0.985);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.34);
+      backdrop-filter: blur(8px);
+      overflow: hidden;
+    }
+
+    .brand-logo {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transform: scale(2.05);
+      transform-origin: center;
+    }
+
+    .menu-lines {
+      width: 32px;
+      height: 21px;
+      display: grid;
+      align-content: space-between;
+    }
+
+    .menu-lines span {
+      display: block;
+      height: 2px;
+      background: currentColor;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      min-height: calc(92vh - 104px);
+      display: grid;
+      place-items: center;
+      padding: 58px 20px 90px;
+      text-align: center;
+    }
+
+    .hero-inner {
+      width: min(820px, 100%);
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(44px, 7vw, 96px);
+      line-height: 0.96;
+      font-weight: 300;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .hero-copy {
+      margin: 20px auto 0;
+      max-width: 680px;
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 34px;
+      flex-wrap: wrap;
+    }
+
+    .btn,
+    button {
+      border: 1px solid currentColor;
+      background: transparent;
+      color: inherit;
+      min-height: 48px;
+      padding: 0 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 0;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 800;
+      font-size: 13px;
+      cursor: pointer;
+      transition: transform 180ms ease, background 180ms ease, color 180ms ease, border-color 180ms ease;
+    }
+
+    .btn:hover,
+    button:hover {
+      transform: translateY(-1px);
+      background: var(--white);
+      color: var(--ink);
+      border-color: var(--white);
+    }
+
+    .btn-dark {
+      background: var(--ink);
+      color: var(--white);
+      border-color: var(--ink);
+    }
+
+    .btn-dark:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--white);
+    }
+
+    .search-wrap {
+      width: min(700px, 100%);
+      margin: 34px auto 0;
+      display: grid;
+      grid-template-columns: 1fr 180px;
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: var(--shadow);
+    }
+
+    .search-wrap input {
+      width: 100%;
+      border: 0;
+      padding: 0 22px;
+      min-height: 58px;
+      font: inherit;
+      color: var(--ink);
+      background: transparent;
+      outline: none;
+    }
+
+    .search-wrap button {
+      color: var(--white);
+      background: var(--forest);
+      border-color: var(--forest);
+      min-height: 58px;
+    }
+
+    main {
+      overflow: hidden;
+    }
+
+    .section {
+      padding: 84px 24px;
+    }
+
+    .container {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 28px;
+      margin-bottom: 34px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 52px);
+      line-height: 1;
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+
+    .section-head p {
+      margin: 0;
+      max-width: 520px;
+      color: var(--muted);
+    }
+
+    .featured {
+      background: var(--white);
+    }
+
+    .featured-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+      border: 1px solid var(--line);
+      background: var(--paper);
+      min-height: 520px;
+    }
+
+    .media {
+      min-height: 340px;
+      background: linear-gradient(135deg, #5e645c, #d8d4cc);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      inset: 0;
+    }
+
+    .listing-info {
+      padding: 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .label {
+      display: inline-flex;
+      align-self: flex-start;
+      background: rgba(177, 151, 107, 0.16);
+      color: #75603c;
+      padding: 7px 11px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      font-size: 11px;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    .listing-info h3 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1.05;
+      font-weight: 400;
+    }
+
+    .price {
+      margin: 16px 0 12px;
+      font-size: 24px;
+      color: var(--forest);
+      font-weight: 800;
+    }
+
+    .facts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 22px 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .facts li {
+      border: 1px solid var(--line);
+      padding: 9px 12px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    .active-listings {
+      background: var(--paper);
+    }
+
+    .listing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .listing-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    .listing-card .media {
+      min-height: 245px;
+    }
+
+    .card-body {
+      padding: 24px;
+    }
+
+    .card-body h3 {
+      margin: 0 0 8px;
+      font-size: 22px;
+      line-height: 1.15;
+      font-weight: 500;
+    }
+
+    .card-body p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .small-price {
+      display: block;
+      margin-top: 16px;
+      color: var(--forest);
+      font-weight: 900;
+      font-size: 18px;
+    }
+
+    .services {
+      background: var(--white);
+    }
+
+    .agent {
+      background: var(--white);
+      padding: 84px 24px;
+    }
+
+    .agent-card {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.7fr) minmax(0, 1fr);
+      gap: 44px;
+      align-items: center;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      padding: 34px;
+    }
+
+    .agent-photo {
+      aspect-ratio: 4 / 5;
+      background: linear-gradient(135deg, #6f706a, #ddd7ce);
+      overflow: hidden;
+    }
+
+    .agent-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .agent-copy h2 {
+      margin: 0 0 18px;
+      font-size: clamp(34px, 5vw, 62px);
+      line-height: 0.98;
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+
+    .agent-copy p {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .agent-points {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 26px 0;
+    }
+
+    .agent-points span {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.72);
+      padding: 13px 14px;
+      color: var(--forest);
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 26px;
+    }
+
+    .service-panel {
+      min-height: 430px;
+      color: var(--white);
+      padding: 42px;
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(0deg, rgba(0, 0, 0, 0.58), rgba(0, 0, 0, 0.18)),
+        var(--forest);
+    }
+
+    .service-panel.seller {
+      background:
+        linear-gradient(0deg, rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0.18)),
+        url("seller-services.jpg") center / cover no-repeat,
+        linear-gradient(135deg, #35443e, #8b8176);
+    }
+
+    .service-panel.buyer {
+      background:
+        linear-gradient(0deg, rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0.18)),
+        url("buyer-services.jpg") center / cover no-repeat,
+        linear-gradient(135deg, #2f3b42, #a79d91);
+    }
+
+    .service-panel.staging {
+      background:
+        linear-gradient(0deg, rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0.18)),
+        url("staging-services.jpg") center / cover no-repeat,
+        linear-gradient(135deg, #4b4038, #b6a48f);
+    }
+
+    .service-panel h3 {
+      margin: 0 0 12px;
+      font-size: clamp(30px, 4vw, 50px);
+      line-height: 1;
+      font-weight: 400;
+    }
+
+    .service-panel p {
+      max-width: 480px;
+      margin: 0 0 24px;
+      color: rgba(255, 255, 255, 0.86);
+    }
+
+    .area-band {
+      background: var(--forest);
+      color: var(--white);
+      padding: 54px 24px;
+    }
+
+    .area-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .area-list span {
+      border: 1px solid rgba(255, 255, 255, 0.26);
+      padding: 10px 14px;
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    .contact {
+      padding: 84px 24px;
+      background: var(--paper);
+    }
+
+    .contact-card {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 34px;
+      align-items: center;
+      background: var(--white);
+      border: 1px solid var(--line);
+      padding: 42px;
+    }
+
+    .contact h2 {
+      margin: 0 0 14px;
+      font-size: clamp(32px, 4vw, 54px);
+      line-height: 1;
+      font-weight: 400;
+    }
+
+    .contact p {
+      color: var(--muted);
+      margin: 0 0 24px;
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      color: var(--ink);
+      min-height: 50px;
+      padding: 13px 14px;
+      font: inherit;
+      border-radius: var(--radius);
+    }
+
+    .contact-form textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    footer {
+      padding: 32px 24px;
+      color: rgba(255, 255, 255, 0.74);
+      background: #111;
+      font-size: 14px;
+    }
+
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 900px) {
+      .topbar {
+        padding: 18px 18px 0;
+        gap: 12px;
+      }
+
+      .brand {
+        width: min(320px, 82vw);
+        height: 122px;
+      }
+
+      .brand-logo {
+        transform: scale(2);
+      }
+
+      .nav-menu {
+        gap: 18px;
+        font-size: 12px;
+        padding: 10px 16px;
+      }
+
+      .featured-card,
+      .agent-card,
+      .contact-card {
+        grid-template-columns: 1fr;
+      }
+
+      .listing-grid,
+      .service-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .agent-points {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        min-height: 88vh;
+      }
+
+      .hero-content {
+        min-height: calc(88vh - 92px);
+      }
+
+      .search-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .listing-info,
+      .card-body,
+      .contact-card,
+      .service-panel {
+        padding: 26px;
+      }
+
+      .section {
+        padding: 58px 18px;
+      }
+
+      .topbar {
+        font-size: 12px;
+        padding: 16px;
+      }
+
+      .brand {
+        width: min(280px, 90vw);
+        height: 106px;
+      }
+
+      .brand-logo {
+        transform: scale(1.95);
+      }
+
+      .nav-menu {
+        width: 100%;
+        gap: 12px 16px;
+        padding: 10px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero" id="top">
+    <nav class="topbar" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="Andrea Richards Real Estate homepage">
+        <img class="brand-logo" src="arre-logo.png" alt="Andrea Richards Real Estate logo">
+      </a>
+
+      <div class="nav-menu">
+        <a href="#featured">Properties</a>
+        <a href="#active-listings">Home Search</a>
+        <a href="#contact">Contact Us</a>
+        <a class="phone" href="tel:+16135550123">(613) 555-0123</a>
+        <a class="menu-lines" href="#services" aria-label="Jump to services">
+          <span></span><span></span><span></span>
+        </a>
+      </div>
+    </nav>
+
+    <div class="hero-content">
+      <div class="hero-inner">
+        <p class="eyebrow">Prince Edward County & Hastings Real Estate</p>
+        <h1>Local Homes. Better Moves.</h1>
+        <p class="hero-copy">A clean, confident home search experience for waterfront, rural, family, and investment properties across the County, Belleville, Trenton, Stirling, Tweed, Madoc, and Bancroft.</p>
+
+        <div class="hero-actions">
+          <a class="btn" href="#active-listings">Browse Homes</a>
+          <a class="btn" href="#contact">Home Valuation</a>
+        </div>
+
+        <form class="search-wrap" id="listingSearch" aria-label="Search active listings">
+          <input id="searchInput" type="search" placeholder="Search by address, town, or property type">
+          <button type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section featured" id="featured">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Featured Listing</p>
+            <h2>Featured before everything else.</h2>
+          </div>
+          <p>Use this as the premium property spot on the homepage. Swap the photo, address, details, and price whenever you have a listing to push.</p>
+        </div>
+
+        <article class="featured-card">
+          <div class="media">
+            <img src="featured-listing.jpg" alt="Featured Prince Edward County home exterior" onerror="this.style.display='none'">
+          </div>
+          <div class="listing-info">
+            <span class="label">Featured Property</span>
+            <h3>Waterfront-inspired living near Prince Edward County.</h3>
+            <div class="price">$899,000</div>
+            <p>Bright open-concept home with room for family, guests, and relaxed weekend living. Replace this text with the real MLS description once ready.</p>
+            <ul class="facts" aria-label="Property facts">
+              <li>4 Beds</li>
+              <li>3 Baths</li>
+              <li>2,450 Sq Ft</li>
+              <li>County Area</li>
+            </ul>
+            <a class="btn btn-dark" href="#contact">Ask About This Home</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section active-listings" id="active-listings">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Active Listings</p>
+            <h2>Homes on the market.</h2>
+          </div>
+          <p>These listing cards sit between the featured listing and the service sections, exactly where you wanted them. Replace the sample cards with your real listings.</p>
+        </div>
+
+        <div class="listing-grid" id="listingGrid">
+          <article class="listing-card" data-search="picton prince edward county bungalow family home">
+            <div class="media">
+              <img src="listing-picton.jpg" alt="Picton area home" onerror="this.style.display='none'">
+            </div>
+            <div class="card-body">
+              <h3>Picton Family Home</h3>
+              <p>Updated detached home close to shops, schools, wineries, and County weekend routes.</p>
+              <span class="small-price">$649,000</span>
+            </div>
+          </article>
+
+          <article class="listing-card" data-search="belleville hastings century home character">
+            <div class="media">
+              <img src="listing-belleville.jpg" alt="Belleville century home" onerror="this.style.display='none'">
+            </div>
+            <div class="card-body">
+              <h3>Belleville Character Home</h3>
+              <p>Classic details, mature street, and practical access to the Bay of Quinte region.</p>
+              <span class="small-price">$574,900</span>
+            </div>
+          </article>
+
+          <article class="listing-card" data-search="hastings county acreage rural workshop tweed stirling madoc">
+            <div class="media">
+              <img src="listing-acreage.jpg" alt="Hastings rural acreage property" onerror="this.style.display='none'">
+            </div>
+            <div class="card-body">
+              <h3>Hastings Acreage</h3>
+              <p>Rural space with flexible outbuilding potential for hobby, storage, or work-from-home needs.</p>
+              <span class="small-price">$739,900</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="agent" id="andrea-richards">
+      <div class="container">
+        <article class="agent-card">
+          <div class="agent-photo">
+            <img src="andrea-richards.jpg" alt="Andrea Richards real estate professional" onerror="this.style.display='none'">
+          </div>
+          <div class="agent-copy">
+            <p class="eyebrow">Meet Andrea Richards</p>
+            <h2>Local guidance with a polished, personal approach.</h2>
+            <p>Andrea Richards helps buyers and sellers move with confidence across Prince Edward County, Hastings, and the surrounding Bay of Quinte communities. Her approach blends local market knowledge, thoughtful presentation, and clear communication from the first conversation to closing day.</p>
+            <p>Whether you are preparing a property for sale, searching for the right home, or comparing rural, waterfront, and in-town options, Andrea focuses on making the process feel organized, informed, and calm.</p>
+            <div class="agent-points">
+              <span>Local Area Insight</span>
+              <span>Listing Preparation</span>
+              <span>Buyer Guidance</span>
+            </div>
+            <a class="btn btn-dark" href="#contact">Work With Andrea</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section services" id="services">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Services</p>
+            <h2>Guidance for both sides of the move.</h2>
+          </div>
+          <p>Seller services, buyer services, and home staging support come after the listings so visitors see inventory before being guided into the right next step.</p>
+        </div>
+
+        <div class="service-grid">
+          <article class="service-panel seller">
+            <span class="label">Seller Services</span>
+            <h3>List with a sharper plan.</h3>
+            <p>Pricing strategy, presentation advice, launch timing, buyer feedback, and negotiation support built for County and Hastings buyers.</p>
+            <a class="btn" href="#contact">Request Valuation</a>
+          </article>
+
+          <article class="service-panel buyer">
+            <span class="label">Buyer Services</span>
+            <h3>Find the right place faster.</h3>
+            <p>Local search guidance, showing planning, offer strategy, neighbourhood insight, and support from first look to closing day.</p>
+            <a class="btn" href="#contact">Start Home Search</a>
+          </article>
+
+          <article class="service-panel staging">
+            <span class="label">Home Staging</span>
+            <h3>Prepare your home to stand out.</h3>
+            <p>Staging support helps each room photograph better, feel more inviting during showings, and give buyers a clearer picture of the lifestyle your property offers.</p>
+            <a class="btn" href="#contact">Ask About Staging</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="area-band" aria-label="Service areas">
+      <div class="container">
+        <p class="eyebrow">Service Areas</p>
+        <h2>Prince Edward County, Hastings, and nearby communities.</h2>
+        <div class="area-list">
+          <span>Picton</span>
+          <span>Wellington</span>
+          <span>Bloomfield</span>
+          <span>Belleville</span>
+          <span>Trenton</span>
+          <span>Stirling</span>
+          <span>Tweed</span>
+          <span>Madoc</span>
+          <span>Bancroft</span>
+          <span>Bay of Quinte</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="container">
+        <div class="contact-card">
+          <div>
+            <p class="eyebrow">Contact</p>
+            <h2>Ready to make a move?</h2>
+            <p>Replace the phone, email, and brand name with your real details. The button uses email for now, which works on GitHub Pages without a backend.</p>
+            <a class="btn btn-dark" href="mailto:your-email@example.com?subject=Real%20Estate%20Question">Email Directly</a>
+          </div>
+
+          <form class="contact-form" action="mailto:your-email@example.com" method="post" enctype="text/plain">
+            <input name="name" type="text" placeholder="Name" required>
+            <input name="phone" type="tel" placeholder="Phone">
+            <input name="email" type="email" placeholder="Email" required>
+            <textarea name="message" placeholder="Tell me what you are looking for"></textarea>
+            <button class="btn-dark" type="submit">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>© 2026 Andrea Richards Real Estate. Replace with your legal brokerage details.</span>
+      <span>Prince Edward County and Hastings Area Real Estate</span>
+    </div>
+  </footer>
+
+  <script>
+    const form = document.querySelector("#listingSearch");
+    const input = document.querySelector("#searchInput");
+    const cards = Array.from(document.querySelectorAll(".listing-card"));
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const query = input.value.trim().toLowerCase();
+
+      cards.forEach((card) => {
+        const text = card.textContent.toLowerCase() + " " + card.dataset.search;
+        card.classList.toggle("hidden", query && !text.includes(query));
+      });
+
+      document.querySelector("#active-listings").scrollIntoView({ behavior: "smooth" });
+    });
+  </script>
+</body>
+</html>
